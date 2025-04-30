@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:task_mate/controllers/auth_controller.dart';
-import 'package:task_mate/views/login_screen.dart';
-import 'package:task_mate/views/todo_view.dart';
-import 'firebase_options.dart';
+import 'controllers/auth_controller.dart';
+import 'views/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
+  await Firebase.initializeApp();
   Get.put(AuthController()); // Register AuthController globally
   runApp(TaskMateApp());
 }
@@ -27,31 +22,27 @@ class ThemeController extends GetxController {
   }
 }
 
-// ignore: use_key_in_widget_constructors
 class TaskMateApp extends StatelessWidget {
   final themeController = Get.put(ThemeController());
-  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => GetMaterialApp(
-          title: 'TaskMate',
+          title: 'Task Mate',
           debugShowCheckedModeBanner: false,
           themeMode: themeController.theme,
           theme: ThemeData.light().copyWith(
             primaryColor: Colors.teal,
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: Colors.teal,
             ),
           ),
           darkTheme: ThemeData.dark().copyWith(
-            floatingActionButtonTheme: const FloatingActionButtonThemeData(
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
               backgroundColor: Colors.tealAccent,
             ),
           ),
-          home: authController.user.value == null
-              ? LoginScreen()
-              : TodoScreen(),
+          home: SplashScreen(),
         ));
   }
 }
