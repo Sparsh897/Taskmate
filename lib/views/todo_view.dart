@@ -192,7 +192,7 @@ class TodoScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      color: Get.isDarkMode ? Colors.white70 : Colors.black54,
+                      color: Get.isDarkMode ? Colors.white : Colors.black54,
                     ),
                   ),
                 );
