@@ -183,13 +183,28 @@ class TodoScreen extends StatelessWidget {
               horizontal: horizontalPadding,
               vertical: verticalPadding,
             ),
-            child: Obx(() => ListView.builder(
-                  itemCount: todoController.todos.length,
-                  itemBuilder: (_, index) {
-                    final todo = todoController.todos[index];
-                    return TodoTile(todo: todo);
-                  },
-                )),
+            child: Obx(() {
+              final todos = todoController.todos;
+              if (todos.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No tasks yet. Add a new task!",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Get.isDarkMode ? Colors.white70 : Colors.black54,
+                    ),
+                  ),
+                );
+              }
+              return ListView.builder(
+                itemCount: todos.length,
+                itemBuilder: (_, index) {
+                  final todo = todos[index];
+                  return TodoTile(todo: todo);
+                },
+              );
+            }),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: _showAddTaskDialog,
