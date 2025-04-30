@@ -59,7 +59,7 @@ class TodoScreen extends StatelessWidget {
                 FocusScope.of(context).unfocus();
                 Navigator.of(context).pop();
               },
-              child:const  Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -79,7 +79,7 @@ class TodoScreen extends StatelessWidget {
                   Get.snackbar("Error", "Please enter a task");
                 }
               },
-              child:const Text("Add Task"),
+              child: const Text("Add Task"),
             ),
           ],
         );
@@ -120,8 +120,61 @@ class TodoScreen extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon:const  Icon(Icons.logout),
-                onPressed: () => authController.signOut(),
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      final isDark = Get.isDarkMode;
+                      return AlertDialog(
+                        backgroundColor: Get.theme.cardColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        title: Text(
+                          "Confirm Logout",
+                          style: TextStyle(
+                            color: isDark ? Colors.white : Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        content: Text(
+                          "Are you sure you want to log out?",
+                          style: TextStyle(
+                            color: isDark ? Colors.white70 : Colors.black87,
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              foregroundColor:
+                                  isDark ? Colors.white : Colors.black,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("Cancel"),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.redAccent,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              authController.signOut();
+                            },
+                            child: const Text("Logout"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

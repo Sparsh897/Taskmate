@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_mate/controllers/auth_controller.dart';
 
+// ignore: use_key_in_widget_constructors
 class LoginScreen extends StatelessWidget {
   final authController = Get.find<AuthController>();
 
